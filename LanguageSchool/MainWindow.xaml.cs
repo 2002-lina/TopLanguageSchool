@@ -23,7 +23,9 @@ namespace LanguageSchool
         public MainWindow()
         {
             InitializeComponent();
+            Base.ZE = new ZheleznovaEntities();
             Frames.FR = frm;
+            Frames.FR.Navigate(new Yslugi());
         }
     }
 }

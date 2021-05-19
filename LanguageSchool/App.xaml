@@ -4,6 +4,47 @@
              xmlns:local="clr-namespace:LanguageSchool"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#04a0ff"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="Title_obg" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#04a0ff"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="Box" TargetType="TextBox">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="bLOCK" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+        <ControlTemplate TargetType="Button" x:Key="btTemplate">
+            <Border CornerRadius="10"
+                    BorderBrush="#04a0ff"
+                    BorderThickness="1"
+                    Background="Transparent"
+                    Height="20"
+                    Width="150" >
+                <ContentControl FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}" />
+            </Border>
+        </ControlTemplate>
          
     </Application.Resources>
+  
 </Application>
