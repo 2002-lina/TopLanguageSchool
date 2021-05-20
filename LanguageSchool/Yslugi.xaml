@@ -46,7 +46,7 @@
                     <TextBlock  Text="РЕДАКТИРОВАНИЕ УСЛУГИ" Style="{StaticResource Title_obg}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="ID услуги:" Margin="0,10,0,0"/>
-                        <TextBlock  Margin="25,10,0,0"  Style="{StaticResource bLOCK}"    Name="RDID"/>
+                        <TextBox IsReadOnly="True" Margin="125,10,0,0" VerticalAlignment="Center"  Style="{StaticResource Box}"    Name="RDID"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Название услуги:"  Margin="0,10,0,0"/>
@@ -77,7 +77,7 @@
                     <Button Content="Назад" Click="Back_Click"  Name="Back"  Margin="10,10,0,0" Template="{StaticResource btTemplate}"></Button>
                 </StackPanel>
 
-                <StackPanel  Visibility="Collapsed"  Name="Forms_zap">
+                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed"  Name="Forms_zap">
                     <TextBlock  Text="ДОБАВЛЕНИЕ УСЛУГИ" Style="{StaticResource Title_obg}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  Text="Введите название услуги:" Margin="0,10,0,0"/>
