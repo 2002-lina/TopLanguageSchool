@@ -22,7 +22,7 @@
         <Style x:Key="Box" TargetType="TextBox">
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Width" Value="500"/>
+            <Setter Property="Width" Value="200"/>
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
 

@@ -39,6 +39,7 @@ namespace LanguageSchool
             FIO.DisplayMemberPath = "Fio";
         }
         int i = -1;
+        int indexChange;
 
         private void StackPanel_Initialized(object sender, EventArgs e)
         {
@@ -354,19 +355,21 @@ namespace LanguageSchool
                 DGDobav.Uid = Convert.ToString(i);
             }
         }
-
+       
         private void DGDobav_Click(object sender, RoutedEventArgs e)
         {
             Button DGDobav = (Button)sender;
             int ind = Convert.ToInt32(DGDobav.Uid);
-            Service S = ServiceList[ind]; Forms_zap_yslugi.Visibility = Visibility.Visible;
+            indexChange = Convert.ToInt32(DGDobav.Uid);
+            Service S = ServiceList[ind]; 
+            Forms_zap_yslugi.Visibility = Visibility.Visible;
             Zapic.Visibility = Visibility.Collapsed;
             DGServises.Visibility = Visibility.Collapsed;
             Forms.Visibility = Visibility.Collapsed;
             Forms_zap.Visibility = Visibility.Collapsed;
             Title_ysl.Visibility = Visibility.Collapsed;
             ZP_ysl_title.Text = Convert.ToString(S.Title);
-            ZP_ysl_dlit.Text = Convert.ToInt32(S.DurationInSeconds / 60) + "" + "мин";
+            ZP_ysl_dlit.Text = Convert.ToInt32(S.DurationInSeconds / 60) + "" + " мин";
         }
 
      
@@ -412,9 +415,11 @@ namespace LanguageSchool
             }
 
         }
+ 
         private void ZP_uslug_Click(object sender, RoutedEventArgs e)
         {
-            Service SE = ServiceList[i];
+            int ind = indexChange;
+            Service SE = ServiceList[ind];
             int index = FIO.SelectedIndex + 1;
             DialogResult dialogResult = (DialogResult)MessageBox.Show("Вы действительно хотите записаться на  услугу?", "Запись на  услугу", (MessageBoxButton)MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -433,7 +438,10 @@ namespace LanguageSchool
 
         }
 
-       
+        private void ZP_yslug_Back_Click(object sender, RoutedEventArgs e)
+        {
+            Frames.FR.Navigate(new Yslugi());
+        }
     }
 }
 

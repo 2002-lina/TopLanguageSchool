@@ -42,7 +42,7 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed"  Name="Forms">
+                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed"  Margin="0,40,0,0" Name="Forms">
                     <TextBlock  Text="РЕДАКТИРОВАНИЕ УСЛУГИ" Style="{StaticResource Title_obg}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="ID услуги:" Margin="0,10,0,0"/>
@@ -77,8 +77,8 @@
                     <Button Content="Назад" Click="Back_Click"  Name="Back"  Margin="10,10,0,0" Template="{StaticResource btTemplate}"></Button>
                 </StackPanel>
 
-                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed"  Name="Forms_zap">
-                    <TextBlock  Text="ДОБАВЛЕНИЕ УСЛУГИ" Style="{StaticResource Title_obg}"/>
+                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,50,0,0" Name="Forms_zap">
+                    <TextBlock  Text="ДОБАВЛЕНИЕ УСЛУГИ"  Style="{StaticResource Title_obg}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  Text="Введите название услуги:" Margin="0,10,0,0"/>
                         <TextBox  Margin="25,10,0,0"  Style="{StaticResource Box}" Name="ZPtitle"  />
@@ -108,7 +108,7 @@
                     <Button Content="Сохранить изменения"  Margin="0,10,0,0" Initialized="ZPSVIzm_Initialized" Template="{StaticResource btTemplate}" Click="ZPSVIzm_Click"  Name="ZPSVIzm"></Button>
                     <Button Content="Назад" Click="ZPBack_Click" Margin="0,10,0,0" Template="{StaticResource btTemplate}"  Name="ZPBack"></Button>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed"  Name="Forms_zap_yslugi">
+                <StackPanel HorizontalAlignment="Center" Margin="0,50,0,0" Visibility="Collapsed"  Name="Forms_zap_yslugi">
                     <TextBlock  Text="ЗАПИСЬ НА УСЛУГУ" Style="{StaticResource Title_obg}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock  Text="Название  услуги:" Margin="0,10,0,0"/>
@@ -118,21 +118,21 @@
                         <TextBlock Text="Длительность услуги:" Margin="0,10,0,0"/>
                         <TextBlock Margin="10,10,0,0" Name="ZP_ysl_dlit"/>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Выберите клиента:" Margin="0,10,0,0"></TextBlock>
-                        <ComboBox  Name="FIO"/>
+                        <ComboBox Margin="10,10,0,0"  Name="FIO"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Выберите дату оказания услуги:" Margin="0,10,0,0"/>
-                        <DatePicker Name="Data"></DatePicker>
+                        <DatePicker  Margin="10,10,0,0" Name="Data"></DatePicker>
                     </StackPanel>
-                    <StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Выведите время начала оказания услуги:" Margin="0,10,0,0"/>
-                        <TextBox Margin="10,10,0,0" TextChanged="ZP_ysl_time_TextChanged" Style="{StaticResource Box}"  Name="ZP_ysl_time"/>
+                        <TextBox Margin="10,10,0,0" Width="200" TextChanged="ZP_ysl_time_TextChanged" Style="{StaticResource Box}"  Name="ZP_ysl_time"/>
                     </StackPanel>
                   
                     <Button Content="Записаться" Initialized="ZP_uslug_Initialized" Click="ZP_uslug_Click" Margin="0,10,0,0"  Template="{StaticResource btTemplate}"  Name="ZP_uslug"></Button>
-                    <Button Content="Назад"  Margin="0,10,0,0" Template="{StaticResource btTemplate}"  Name="ZP_yslug_Back"></Button>
+                    <Button Content="Назад"  Margin="0,10,0,0" Template="{StaticResource btTemplate}" Click="ZP_yslug_Back_Click"  Name="ZP_yslug_Back"></Button>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
