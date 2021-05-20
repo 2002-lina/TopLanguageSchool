@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="LanguageSchool" Height="450" Width="800" Icon="\img\school_logo.ico">
     <Grid>
+        <Image Name="logotip" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" Width="30" Height="30"></Image>
         <Frame Name="frm" NavigationUIVisibility="Hidden"></Frame>
         
         

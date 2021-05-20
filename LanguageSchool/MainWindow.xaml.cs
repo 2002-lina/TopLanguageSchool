@@ -20,12 +20,21 @@ namespace LanguageSchool
     /// </summary>
     public partial class MainWindow : Window
     {
+        string Path;
         public MainWindow()
         {
             InitializeComponent();
             Base.ZE = new ZheleznovaEntities();
             Frames.FR = frm;
             Frames.FR.Navigate(new Yslugi());
+            BitmapImage BMI = new BitmapImage();
+            BMI.BeginInit();
+            Path = @"img\school_logo.png";
+            BMI.UriSource = new Uri(Path, UriKind.RelativeOrAbsolute);
+            BMI.EndInit();
+            logotip.Source = BMI;
+            logotip.Stretch = Stretch.UniformToFill;
+
         }
     }
 }
