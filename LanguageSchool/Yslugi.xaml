@@ -33,7 +33,7 @@
                                             <StackPanel Orientation="Horizontal" Margin="50,0,0,0"  >
                                                 <Button Name="DGRed" Content="Редактировать" Template="{StaticResource btTemplate}" Initialized="DGRed_Initialized" Margin="0,20,0,0" Click="DGRed_Click"/>
                                                 <Button Name="DGDel" Content="Удалить"  Template="{StaticResource btTemplate}" Margin="10,20,10,0" Initialized="DGDel_Initialized" Click="DGDel_Click"/>
-                                                <Button Name="DGDobav" Content="Новый заказ" Template="{StaticResource btTemplate}" Margin="0,20,10,0"/>
+                                                <Button Name="DGDobav" Content="Новый заказ" Initialized="DGDobav_Initialized" Click="DGDobav_Click" Template="{StaticResource btTemplate}" Margin="0,20,10,0"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -107,6 +107,32 @@
 
                     <Button Content="Сохранить изменения"  Margin="0,10,0,0" Initialized="ZPSVIzm_Initialized" Template="{StaticResource btTemplate}" Click="ZPSVIzm_Click"  Name="ZPSVIzm"></Button>
                     <Button Content="Назад" Click="ZPBack_Click" Margin="0,10,0,0" Template="{StaticResource btTemplate}"  Name="ZPBack"></Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Visibility="Collapsed"  Name="Forms_zap_yslugi">
+                    <TextBlock  Text="ЗАПИСЬ НА УСЛУГУ" Style="{StaticResource Title_obg}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock  Text="Название  услуги:" Margin="0,10,0,0"/>
+                        <TextBlock  Margin="25,10,0,0"  Name="ZP_ysl_title"  />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Длительность услуги:" Margin="0,10,0,0"/>
+                        <TextBlock Margin="10,10,0,0" Name="ZP_ysl_dlit"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Выберите клиента:" Margin="0,10,0,0"></TextBlock>
+                        <ComboBox  Name="FIO"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Выберите дату оказания услуги:" Margin="0,10,0,0"/>
+                        <DatePicker Name="Data"></DatePicker>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Выведите время начала оказания услуги:" Margin="0,10,0,0"/>
+                        <TextBox Margin="10,10,0,0" TextChanged="ZP_ysl_time_TextChanged" Style="{StaticResource Box}"  Name="ZP_ysl_time"/>
+                    </StackPanel>
+                  
+                    <Button Content="Записаться" Initialized="ZP_uslug_Initialized" Click="ZP_uslug_Click" Margin="0,10,0,0"  Template="{StaticResource btTemplate}"  Name="ZP_uslug"></Button>
+                    <Button Content="Назад"  Margin="0,10,0,0" Template="{StaticResource btTemplate}"  Name="ZP_yslug_Back"></Button>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

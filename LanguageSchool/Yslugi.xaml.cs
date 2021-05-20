@@ -18,6 +18,7 @@ using Button = System.Windows.Controls.Button;
 using MessageBox =  System.Windows.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using System.Data.Entity.Migrations;
+using System.Text.RegularExpressions;
 
 namespace LanguageSchool
 {
@@ -32,6 +33,10 @@ namespace LanguageSchool
         {
             InitializeComponent();
             DGServises.ItemsSource = ServiceList;
+
+            FIO.ItemsSource = Base.ZE.Client.ToList();
+            FIO.SelectedValuePath = "ID";
+            FIO.DisplayMemberPath = "Fio";
         }
         int i = -1;
 
@@ -136,9 +141,9 @@ namespace LanguageSchool
             RDID.Text = Convert.ToString(S.ID);
             RDtitle.Text = Convert.ToString(S.Title);
             RDcost.Text = Convert.ToInt32(S.Cost) + "";
-            RDdlit.Text = Convert.ToInt32(S.DurationInSeconds/60)+"";
+            RDdlit.Text = Convert.ToInt32(S.DurationInSeconds / 60) + "";
             RDopis.Text = Convert.ToString(S.Description);
-            RDskid.Text = Convert.ToString(S.Discount*100);
+            RDskid.Text = Convert.ToString(S.Discount * 100);
             RDimg.Text = Convert.ToString(S.MainImagePath);
 
         }
@@ -172,7 +177,7 @@ namespace LanguageSchool
             Button BtnDel = (Button)sender;
             int ind = Convert.ToInt32(BtnDel.Uid);
             DialogResult dialogResult = (DialogResult)MessageBox.Show("Вы действительно хотите удалить запись?", "Удаление записи", (MessageBoxButton)MessageBoxButtons.YesNo);
-            if (dialogResult==DialogResult.Yes)
+            if (dialogResult == DialogResult.Yes)
             {
                 Service S = ServiceList[ind];
                 Base.ZE.Service.Remove(S);
@@ -184,7 +189,7 @@ namespace LanguageSchool
             {
                 MessageBox.Show("Запись не  удалена");
             }
-           
+
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -207,13 +212,13 @@ namespace LanguageSchool
             OpenFileDialog OFD = new OpenFileDialog();
             OFD.ShowDialog();
             string path = OFD.FileName;
-            if (path!=" ")
+            if (path != " ")
             {
                 int c = path.IndexOf('У');
                 string len = path.Substring(c);
                 RDimg.Text = len.ToString();
             }
-           
+
         }
 
         private void SVIzm_Initialized(object sender, EventArgs e)
@@ -248,7 +253,7 @@ namespace LanguageSchool
                     MessageBox.Show("Изменения не сохранены");
                 }
             }
-            
+
 
         }
 
@@ -303,7 +308,7 @@ namespace LanguageSchool
 
         private void ZPSVIzm_Click(object sender, RoutedEventArgs e)
         {
-          
+
             Service SE = ServiceList[i];
             if (SE.Title == ZPtitle.Text)
             {
@@ -318,7 +323,7 @@ namespace LanguageSchool
             {
                 double skidka = Convert.ToDouble(ZPskid.Text) / 100;
                 int time = Convert.ToInt32(ZPdlit.Text) * 60;
-                DialogResult dialogResult = (DialogResult)MessageBox.Show("Вы действительно хотите добавть новую услугу?", "Добавление услуги", (MessageBoxButton)MessageBoxButtons.YesNo);
+                DialogResult dialogResult = (DialogResult)MessageBox.Show("Вы действительно хотите добавить новую услугу?", "Добавление услуги", (MessageBoxButton)MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Service ServiceObject = new Service() { Title = ZPtitle.Text, Cost = Convert.ToInt32(ZPcost.Text), DurationInSeconds = time, Description = ZPopis.Text, Discount = skidka, MainImagePath = ZPimg.Text };
@@ -331,14 +336,109 @@ namespace LanguageSchool
                     MessageBox.Show("Услуга не добавлена");
                 }
             }
-          
-            
+
+
         }
 
         private void ZPBack_Click(object sender, RoutedEventArgs e)
         {
-           
+
             Frames.FR.Navigate(new Yslugi());
         }
+
+        private void DGDobav_Initialized(object sender, EventArgs e)
+        {
+            Button DGDobav = (Button)sender;
+            if (DGDobav != null)
+            {
+                DGDobav.Uid = Convert.ToString(i);
+            }
+        }
+
+        private void DGDobav_Click(object sender, RoutedEventArgs e)
+        {
+            Button DGDobav = (Button)sender;
+            int ind = Convert.ToInt32(DGDobav.Uid);
+            Service S = ServiceList[ind]; Forms_zap_yslugi.Visibility = Visibility.Visible;
+            Zapic.Visibility = Visibility.Collapsed;
+            DGServises.Visibility = Visibility.Collapsed;
+            Forms.Visibility = Visibility.Collapsed;
+            Forms_zap.Visibility = Visibility.Collapsed;
+            Title_ysl.Visibility = Visibility.Collapsed;
+            ZP_ysl_title.Text = Convert.ToString(S.Title);
+            ZP_ysl_dlit.Text = Convert.ToInt32(S.DurationInSeconds / 60) + "" + "мин";
+        }
+
+     
+
+        private void ZP_uslug_Initialized(object sender, EventArgs e)
+        {
+            Button ZP_uslug = (Button)sender;
+            if (ZP_uslug != null)
+            {
+                ZP_uslug.Uid = Convert.ToString(i);
+            }
+        }
+        DateTime Dt;
+        private void ZP_ysl_time_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Regex r1 = new Regex("[0-1][0-9]:[0-5][0-9]");
+            Regex r2 = new Regex("2[0-3:][0-5][0-9]");
+            string s = "";
+
+            if ((r1.IsMatch(ZP_ysl_time.Text) || r2.IsMatch(ZP_ysl_time.Text)) && ZP_ysl_time.Text.Length == 5)
+            {
+
+                TimeSpan TS = TimeSpan.Parse(ZP_ysl_time.Text);
+                Dt = Convert.ToDateTime(Data.SelectedDate);
+                Dt = Dt.Add(TS);
+                if (Dt < DateTime.Now)
+                {
+                    MessageBox.Show("На выбранную дату вы записаться не можете!");
+                    ZP_uslug.IsEnabled = false;
+                }
+
+            }
+
+            else
+            {
+                if (ZP_ysl_time.Text.Length >= 5)
+                {
+                    MessageBox.Show("Время указзано неверно");
+                    ZP_uslug.IsEnabled = false;
+                }
+
+
+            }
+
+        }
+        private void ZP_uslug_Click(object sender, RoutedEventArgs e)
+        {
+            Service SE = ServiceList[i];
+            int index = FIO.SelectedIndex + 1;
+            DialogResult dialogResult = (DialogResult)MessageBox.Show("Вы действительно хотите записаться на  услугу?", "Запись на  услугу", (MessageBoxButton)MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                ClientService ClientServiceObject = new ClientService() { ClientID = index, ServiceID = SE.ID, StartTime = Dt };
+                Base.ZE.ClientService.Add(ClientServiceObject);
+                Base.ZE.SaveChanges();
+                MessageBox.Show("Запись прошла успешна");
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                MessageBox.Show("Вы не записались");
+            }
+
+
+
+        }
+
+       
     }
 }
+
+
+ 
+
+
+            
