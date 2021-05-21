@@ -27,16 +27,18 @@ namespace LanguageSchool
     /// </summary>
     public partial class Yslugi : Page
     {
-        List<Service> ServiceList = Base.ZE.Service.ToList();
+        List<Service> ServiceList1 = Base.ZE.Service.ToList();
+        List<Service> ServiceList = new List<Service>();
 
         public Yslugi()
         {
             InitializeComponent();
+            ServiceList = ServiceList1;
             DGServises.ItemsSource = ServiceList;
-
             FIO.ItemsSource = Base.ZE.Client.ToList();
             FIO.SelectedValuePath = "ID";
             FIO.DisplayMemberPath = "Fio";
+            Count_all.Text = ServiceList.Count.ToString();
         }
         int i = -1;
         int indexChange;
@@ -139,6 +141,8 @@ namespace LanguageSchool
             Forms.Visibility = Visibility.Visible;
             Title_ysl.Visibility = Visibility.Collapsed;
             Zapic.Visibility = Visibility.Collapsed;
+            Filter_all.Visibility = Visibility.Collapsed;
+            Filter_poisk.Visibility = Visibility.Collapsed;
             RDID.Text = Convert.ToString(S.ID);
             RDtitle.Text = Convert.ToString(S.Title);
             RDcost.Text = Convert.ToInt32(S.Cost) + "";
@@ -274,6 +278,8 @@ namespace LanguageSchool
             Forms.Visibility = Visibility.Collapsed;
             Forms_zap.Visibility = Visibility.Visible;
             Title_ysl.Visibility = Visibility.Collapsed;
+            Filter_all.Visibility = Visibility.Collapsed;
+            Filter_poisk.Visibility = Visibility.Collapsed;
         }
 
         private void ZPImg_Initialized(object sender, EventArgs e)
@@ -368,6 +374,8 @@ namespace LanguageSchool
             Forms.Visibility = Visibility.Collapsed;
             Forms_zap.Visibility = Visibility.Collapsed;
             Title_ysl.Visibility = Visibility.Collapsed;
+            Filter_all.Visibility = Visibility.Collapsed;
+            Filter_poisk.Visibility = Visibility.Collapsed;
             ZP_ysl_title.Text = Convert.ToString(S.Title);
             ZP_ysl_dlit.Text = Convert.ToInt32(S.DurationInSeconds / 60) + "" + " мин";
         }
@@ -442,11 +450,129 @@ namespace LanguageSchool
         {
             Frames.FR.Navigate(new Yslugi());
         }
+
+        private void Upp_Click(object sender, RoutedEventArgs e)
+        {
+            i = -1;
+            ServiceList.Sort((x, y) => x.newCost.CompareTo(y.newCost));
+            DGServises.Items.Refresh();
+            Filter_poisk.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void Down_Click(object sender, RoutedEventArgs e)
+        {
+            i = -1;
+            ServiceList.Sort((x, y) => x.newCost.CompareTo(y.newCost));
+            ServiceList.Reverse();
+            DGServises.Items.Refresh();
+            Filter_poisk.Visibility = Visibility.Collapsed;
+
+        }
+
+        List<Service> ServiseListFilter = new List<Service>();
+        private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            i = -1;
+            
+            for (int i=0; i<ServiceList.Count; i++)
+            { 
+            switch (Filter.SelectedIndex)
+            {
+                case 0:
+                        ServiceList = ServiceList1;
+                    ServiseListFilter = ServiceList.Where(x => x.Discount < 0.05 ).ToList();
+                    ServiceList = ServiseListFilter;
+                    DGServises.ItemsSource = ServiceList;
+                    Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                        break;
+                case 1:
+                        ServiceList = ServiceList1;
+                        ServiseListFilter = ServiceList.Where(x =>  x.Discount < 0.15 && x.Discount>=0.05).ToList();
+                    ServiceList = ServiseListFilter;
+                    DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                        break;
+                case 2:
+                        ServiceList = ServiceList1;
+                        ServiseListFilter = ServiceList.Where(x => x.Discount < 0.3 && x.Discount >= 0.15).ToList();
+                    ServiceList = ServiseListFilter;
+                    DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                        break;
+                case 3:
+                        ServiceList = ServiceList1;
+                        ServiseListFilter = ServiceList.Where(x => x.Discount < 0.7 && x.Discount >= 0.3).ToList();
+                    ServiceList = ServiseListFilter;
+                    DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                        break;
+                case 4:
+                        ServiceList = ServiceList1;
+                        ServiseListFilter = ServiceList.Where(x => x.Discount < 1 && x.Discount >= 0.7).ToList();
+                    ServiceList = ServiseListFilter;
+                    DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                        break;
+                    case 5:
+                        ServiceList = ServiceList1;
+                        ServiseListFilter = ServiceList.Where(x => x.Discount <= 1).ToList();
+                        ServiceList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
+
+        }
+
+        private void Filt_name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            i = -1;
+            for (int i = 0; i < ServiceList.Count; i++)
+            {
+                if (Filt_name.Text != "")
+                {
+                    List<Service> ServiseListPoisk = new List<Service>();
+                    ServiseListPoisk = ServiceList.Where(x => x.Title.Contains(Filt_name.Text)).ToList();
+                    ServiceList = ServiseListPoisk;
+                    DGServises.ItemsSource = ServiceList;
+                    Count.Text = ServiceList.Count.ToString();
+                    Filter_poisk.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    if (ServiseListFilter.Count == 0)
+                    {
+                        ServiceList = ServiceList1;
+                        DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ServiceList = ServiseListFilter;
+                        DGServises.ItemsSource = ServiceList;
+                        Count.Text = ServiceList.Count.ToString();
+                        Filter_poisk.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
     }
 }
 
 
- 
 
 
-            
+
+
+
+
+

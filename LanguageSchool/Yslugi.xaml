@@ -13,7 +13,35 @@
             <StackPanel  Width="745">
                 <TextBlock Name="Title_ysl" Text="УСЛУГИ" Style="{StaticResource Title_obg}" HorizontalAlignment="Center"></TextBlock>
                 <Button Name="Zapic" Initialized="Zapic_Initialized" Click="Zapic_Click" Content="Добавить новую услугу"  Margin="0,10,0,10" Template="{StaticResource btTemplate}"></Button>
-                <DataGrid Name="DGServises" Visibility="Visible" AutoGenerateColumns="False" HorizontalAlignment="Center" IsReadOnly="True" CanUserAddRows="False">
+                <StackPanel Name="Filter_all" Orientation="Horizontal">
+                <StackPanel >
+                    <TextBlock Margin="0,0,0,0" Text="Отсортировать список услуг по их стоимости:"/>
+                    <Button Content="По возрастанию" Name="Upp" Margin="30,5,0,0" HorizontalAlignment="Left" Template="{StaticResource btTemplate}" Click="Upp_Click"></Button>
+                    <Button Content="По убыванию" Name="Down"   Margin="30,5,0,0"  HorizontalAlignment="Left" Template="{StaticResource btTemplate}" Click="Down_Click"></Button>
+                </StackPanel>
+                    <StackPanel>
+                        <TextBlock Margin="30,0,0,0"   Text="Поиск услуг по названию:"/>
+                        <TextBox  Name="Filt_name"  TextChanged="Filt_name_TextChanged" Margin="30,0,0,0"></TextBox>
+                    </StackPanel>
+                <StackPanel Margin="80,0,0,0" HorizontalAlignment="Right">
+                        <TextBlock Margin="-10,0,0,0"  Text="Фильтрация списка по их скидки:"/>
+                        <ComboBox Name="Filter" SelectionChanged="Filter_SelectionChanged" >
+                            <ComboBoxItem Content="0-5%"></ComboBoxItem>
+                            <ComboBoxItem Content="5-15%"></ComboBoxItem>
+                            <ComboBoxItem Content="15-30%"></ComboBoxItem>
+                            <ComboBoxItem Content="30-70%"></ComboBoxItem>
+                            <ComboBoxItem Content="70-100%"></ComboBoxItem>
+                            <ComboBoxItem Content="Все"></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel  >
+                <StackPanel Name="Filter_poisk" Visibility="Collapsed" HorizontalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" Text="Количество услуг в базе:"></TextBlock>
+                    <TextBlock  TextAlignment="Center" Name="Count_all"></TextBlock>
+                    <TextBlock  HorizontalAlignment="Center" Text="Количество выведенных услуг:"></TextBlock>
+                    <TextBlock Background="Transparent" TextAlignment="Center"  Name="Count"></TextBlock>
+                </StackPanel>
+                <DataGrid Name="DGServises" Visibility="Visible" AutoGenerateColumns="False" HorizontalAlignment="Center" IsReadOnly="True" Margin="0,10,0,0" CanUserAddRows="False">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn>
                             <DataGridTemplateColumn.CellTemplate>

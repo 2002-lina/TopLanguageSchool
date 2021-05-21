@@ -28,6 +28,7 @@ namespace LanguageSchool
         public string Description { get; set; }
         public Nullable<double> Discount { get; set; }
         public string MainImagePath { get; set; }
+        public double newCost { get { return (double)Cost * (1 - (double)Discount); } }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientService> ClientService { get; set; }
